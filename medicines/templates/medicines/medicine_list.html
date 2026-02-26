@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Online Medicine Shop</h1>
+
+<form method="GET">
+    <input type="text" name="q" placeholder="Search medicine...">
+    <button type="submit">Search</button>
+</form>
+
+<hr>
+
+{% for medicine in medicines %}
+    <div style="border:1px solid black; padding:10px; margin:10px;">
+        <h3>{{ medicine.name }}</h3>
+        <p>Price: Rs. {{ medicine.price }}</p>
+        <p>Stock: {{ medicine.stock_quantity }}</p>
+        <a href="{% url 'medicine_detail' medicine.id %}">View Details</a>
+    </div>
+{% empty %}
+    <p>No medicines available.</p>
+{% endfor %}
+{% endblock %}

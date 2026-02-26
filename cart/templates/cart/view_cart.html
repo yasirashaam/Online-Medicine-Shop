@@ -1,0 +1,27 @@
+<h2>Your Cart</h2>
+
+{% if cart.items.exists %}
+    {% for item in cart.items.all %}
+        <div style="border:1px solid black; margin:10px; padding:10px;">
+            <h3>{{ item.medicine.name }}</h3>
+            <p>Price: Rs. {{ item.medicine.price }}</p>
+            <p>Quantity: {{ item.quantity }}</p>
+            <p>Subtotal: Rs. {{ item.subtotal }}</p>
+
+            <a href="{% url 'remove_from_cart' item.id %}">
+                <button>Remove</button>
+            </a>
+        </div>
+    {% endfor %}
+
+    <hr>
+    <h3>Total: Rs. {{ cart.total_price }}</h3>
+
+{% else %}
+    <p>Your cart is empty.</p>
+{% endif %}
+{% if cart.items.exists %}
+    <a href="{% url 'place_order' %}"><button>Place Order</button></a>
+{% endif %}
+
+<a href="/">Continue Shopping</a>
