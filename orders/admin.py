@@ -1,5 +1,9 @@
 from django.contrib import admin
-from .models import Order, OrderItem
+from .models import Order
 
-admin.site.register(Order)
-admin.site.register(OrderItem)
+class OrderAdmin(admin.ModelAdmin):
+    list_display = ('id', 'user', 'total_price', 'status', 'created_at')
+    list_filter = ('status', 'created_at')
+    search_fields = ('user__username', 'id')
+
+admin.site.register(Order, OrderAdmin)

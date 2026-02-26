@@ -1,13 +1,26 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<div class="row justify-content-center">
+<div class="row justify-content-center mt-5">
     <div class="col-md-6">
         <div class="card shadow-lg">
             <div class="card-header text-center bg-success text-white">
                 <h4>Create New Account</h4>
             </div>
             <div class="card-body">
+
+                {% if form.errors %}
+                    <div class="alert alert-danger">
+                        {% for field in form %}
+                            {% for error in field.errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        {% endfor %}
+                        {% for error in form.non_field_errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
 
                 <form method="POST">
                     {% csrf_token %}
@@ -24,12 +37,22 @@
 
                     <div class="mb-3">
                         <label class="form-label">Password</label>
-                        <input type="password" name="password1" class="form-control" required>
+                        <div class="input-group">
+                            <input type="password" name="password1" class="form-control" id="regPassword" required>
+                            <button class="btn btn-outline-secondary" type="button" onclick="togglePassword('regPassword')">
+                                Show
+                            </button>
+                        </div>
                     </div>
 
                     <div class="mb-3">
                         <label class="form-label">Confirm Password</label>
-                        <input type="password" name="password2" class="form-control" required>
+                        <div class="input-group">
+                            <input type="password" name="password2" class="form-control" id="regConfirmPassword" required>
+                            <button class="btn btn-outline-secondary" type="button" onclick="togglePassword('regConfirmPassword')">
+                                Show
+                            </button>
+                        </div>
                     </div>
 
                     <div class="d-grid">
@@ -40,13 +63,23 @@
 
                 <hr>
                 <p class="text-center">
-                    Already have an account?
-                    <a href="/login/">Login here</a>
+                    Already have an account? <a href="/login/">Login here</a>
                 </p>
 
             </div>
         </div>
     </div>
 </div>
+
+<script>
+function togglePassword(id){
+    var x = document.getElementById(id);
+    if(x.type === "password"){
+        x.type = "text";
+    } else {
+        x.type = "password";
+    }
+}
+</script>
 
 {% endblock %}
