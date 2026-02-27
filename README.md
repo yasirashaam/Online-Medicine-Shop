@@ -46,4 +46,3 @@ Bootstrap 5 for responsive frontend
 
 🔗 Author
 Yasir Ashaam
-GitHub | Email: yasirashaam@gmail.com
